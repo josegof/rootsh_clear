@@ -12,7 +12,7 @@ Script to close rootsh sessions and strip ANSI escape codes for Splunk consumpti
 
 ```bash
 cd /usr/src
-wget https://github.com/josegof/rootsh_clear/archive/master.zip
+wget https://github.com/josegof/rootsh_clear/archive/v1.0.zip
 unzip master.zip
 cp rootsh_clear-master/ansifilter_{linux or solaris} /usr/local/bin/ansifilter
 cp rootsh_clear-master/rootsh_clear.sh {scripts_dir}/rootsh_clear.sh
