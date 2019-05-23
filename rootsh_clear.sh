@@ -23,5 +23,6 @@ find $LOGDIR -type f -name '*.closed' |
  while IFS= read RSHLOG; do
     if [ ! -s "${RSHLOG}.spl" ]; then
     cat $RSHLOG | $ANFBIN > "${RSHLOG}.spl"
+    chmod 600 ${RSHLOG}.spl
     fi
   done
