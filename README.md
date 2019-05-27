@@ -5,7 +5,8 @@ Script to close rootsh sessions and strip ANSI escape codes for Splunk consumpti
 ## Requirements
 
 - rootsh
-- ansifilter
+- ansifilter (c)
+- declutter (perl)
 
 
 ## Installation

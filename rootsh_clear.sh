@@ -9,9 +9,16 @@
 
 RSHBIN=`which rootsh`
 ANFBIN=`which ansifilter`
+DECBIN=`which declutter`
 LOGDIR=`$RSHBIN -V | grep "logfiles.*directory" | sed 's/.*directory \(.*\)/\1/'`
 
-find $LOGDIR -type f ! -name '*.closed' ! -name '*.spl' |
+# workaround to redo old files
+if [ ! -f "$LOGDIR/.splunkok" ]; then
+ rm $LOGDIR/*.spl
+ touch "$LOGDIR/.splunkok"
+fi
+
+find $LOGDIR -type f -not -name '*.closed' -not -name '*.spl' -not -name '.*' |
  while IFS= read RSHLOG; do
    RSHPID=$(fuser $RSHLOG 2> /dev/null)
     if [ -z "$RSHPID" ]; then
@@ -19,10 +26,11 @@ find $LOGDIR -type f ! -name '*.closed' ! -name '*.spl' |
     fi
   done
 
-find $LOGDIR -type f -name '*.closed' |
+find $LOGDIR -type f -name '*.closed' -not -name '.*' |
  while IFS= read RSHLOG; do
     if [ ! -s "${RSHLOG}.spl" ]; then
-    cat $RSHLOG | $ANFBIN > "${RSHLOG}.spl"
-    chmod 600 ${RSHLOG}.spl
+     $DECBIN $RSHLOG | $ANFBIN > "${RSHLOG}.spl"
+     chmod 600 ${RSHLOG}.spl
+     touch -c --reference="$RSHLOG" "${RSHLOG}.spl"
     fi
   done
