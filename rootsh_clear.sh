@@ -9,8 +9,7 @@
 
 RSHBIN=`which rootsh`
 ANFBIN=`which ansifilter`
-#DECBIN=`which declutter`
-DECBIN="/root/declutter"
+DECBIN=`which declutter`
 LOGDIR=`$RSHBIN -V | grep "logfiles.*directory" | sed 's/.*directory \(.*\)/\1/'`
 
 # workaround to redo old files
